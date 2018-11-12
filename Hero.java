@@ -39,13 +39,13 @@ public class Hero extends Mover {
     }
 
     public void handleInput() {
-        if (Greenfoot.isKeyDown("w")) {
+        if (Greenfoot.isKeyDown("up")) {
             velocityY = -10;
         }
 
-        if (Greenfoot.isKeyDown("a")) {
+        if (Greenfoot.isKeyDown("left")) {
             velocityX = -2;
-        } else if (Greenfoot.isKeyDown("d")) {
+        } else if (Greenfoot.isKeyDown("right")) {
             velocityX = 2;
         }
     }
