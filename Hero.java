@@ -10,7 +10,8 @@ public class Hero extends Mover {
     private final double gravity;
     private final double acc;
     private final double drag;
-
+    private int diamant;
+    
     public Hero() {
         super();
         gravity = 9.8;
@@ -18,10 +19,11 @@ public class Hero extends Mover {
         drag = 0.8;
         setImage("p1.png");
     }
-
+    
     @Override
     public void act() {
         handleInput();
+        getDiamant();
         
         velocityX *= drag;
         velocityY += acc;
@@ -29,7 +31,7 @@ public class Hero extends Mover {
             velocityY = gravity;
         }
         applyVelocity();
-
+        
         for (Actor enemy : getIntersectingObjects(Enemy.class)) {
             if (enemy != null) {
                 getWorld().removeObject(this);
@@ -37,16 +39,28 @@ public class Hero extends Mover {
             }
         }
     }
-
+    public int getDiamant() {
+        if(isTouching(Diamant.class)) {
+            removeTouching(Diamant.class);
+            diamant ++;
+        }
+        return diamant;
+    }
+    public boolean onGround() {
+        Actor under = getOneObjectAtOffset(0, getHeight()/2, Tile.class);
+        return under != null;
+    }
     public void handleInput() {
-        if (Greenfoot.isKeyDown("up")) {
+        
+        if (Greenfoot.isKeyDown("up") && onGround() == true) {
             velocityY = -10;
         }
 
-        if (Greenfoot.isKeyDown("left")) {
-            velocityX = -2;
-        } else if (Greenfoot.isKeyDown("right")) {
-            velocityX = 2;
+        if (Greenfoot.isKeyDown("left") ) {
+            velocityX = -4;
+        } 
+        if (Greenfoot.isKeyDown("right")) {
+            velocityX = 4;
         }
     }
 
