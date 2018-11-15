@@ -32,7 +32,7 @@ public class Hero extends Mover {
         }
         applyVelocity();
         
-        for (Actor enemy : getIntersectingObjects(Enemy.class)) {
+        for (Actor enemy : getIntersectingObjects(Vlieg.class)) {
             if (enemy != null) {
                 getWorld().removeObject(this);
                 break;
