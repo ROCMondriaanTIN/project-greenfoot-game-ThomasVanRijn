@@ -23,13 +23,14 @@ public class Hero extends Mover {
     int animationTimer = 0;
     int animationTimerFrame = 10;
     int kleur = 1;
+    int direction = 2;
 
     public Hero() {
         super();
         gravity = 9.8;
         acc = 0.6;
         drag = 0.8;
-        setImage("alien1_stand.png");
+        setImage("alien1_stand2.png");
     }
 
     @Override
@@ -102,48 +103,56 @@ public class Hero extends Mover {
     }
 
     public void handleInput() {
-        if (Greenfoot.isKeyDown("up") && onGround() == true) {
+        if(onGround() == false) setImage("alien"+kleur+"_jump"+direction+".png");
+        if (keyUp() && onGround() == true) {
             velocityY = -jumpHeight;
+            
         }
 
-        if (Greenfoot.isKeyDown("left")) {
+        if (keyLeft()) {
             velocityX = -walkSpeed;
             
-            if (animationTimer % animationTimerFrame == 0) {
+            if (animationTimer % animationTimerFrame == 0 && onGround()) {
                 animateLeft();
             }
             animationTimer++;
+            direction = 1;
         }
 
-        if (Greenfoot.isKeyDown("right")) {
+        if (keyRight()) {
             velocityX = walkSpeed;
             
-            if (animationTimer % animationTimerFrame == 0) {
+            if (animationTimer % animationTimerFrame == 0 && onGround()) {
                 animateRight();
             }
             animationTimer++;
+            direction = 2;
+        }
+        if(keyUp() == false && keyLeft() == false && keyRight() == false
+                && onGround() == true) {
+            setImage("alien"+kleur+"_stand"+direction+".png");
         }
     }
 
     public void changePlayer() {
         if (groeneMunt == 1) {
-            setImage("alien1_stand.png");
+            setImage("alien1_stand"+direction+".png");
             groeneMunt = 0;
-            jumpHeight = 13;
+            jumpHeight = 14;
             walkSpeed = 5;
             kleur = 1;
             animationTimerFrame = 10;
         } else if (rozeMunt == 1) {
-            setImage("alien2_stand.png");
+            setImage("alien2_stand"+direction+".png");
             rozeMunt = 0;
-            jumpHeight = 10;
+            jumpHeight = 11;
             walkSpeed = 3;
             kleur = 2;
             animationTimerFrame = 13;
         } else if (blauweMunt == 1) {
-            setImage("alien3_stand.png");
+            setImage("alien3_stand"+direction+".png");
             blauweMunt = 0;
-            jumpHeight = 16;
+            jumpHeight = 17;
             walkSpeed = 5;
             kleur = 3;
             animationTimerFrame = 10;
@@ -177,8 +186,20 @@ public class Hero extends Mover {
     public int getWidth() {
         return getImage().getWidth();
     }
-
     public int getHeight() {
         return getImage().getHeight();
+    }
+    
+    public boolean keyUp() {
+        boolean keyUp = Greenfoot.isKeyDown("up");
+        return keyUp;
+    }
+    public boolean keyLeft() {
+        boolean keyRight = Greenfoot.isKeyDown("left");
+        return keyRight;
+    }
+    public boolean keyRight() {
+        boolean keyRight = Greenfoot.isKeyDown("right");
+        return keyRight;
     }
 }
