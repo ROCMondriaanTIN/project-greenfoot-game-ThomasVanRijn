@@ -11,10 +11,13 @@ public class Hero extends Mover {
     private final double acc;
     private final double drag;
     private int diamant;
-
+    private int ster;
+    
     public int groeneMunt;
     public int blauweMunt;
     public int rozeMunt;
+    
+    public int blauweSleutel;
 
     public int jumpHeight = 13;
     public int walkSpeed = 5;
@@ -38,10 +41,15 @@ public class Hero extends Mover {
         changePlayer();
 
         handleInput();
+        
         getDiamant();
+        getSter();
+        
         getGroeneMunt();
         getBlauweMunt();
         getRozeMunt();
+        
+        getBlauweSleutel();
 
         velocityX *= drag;
         velocityY += acc;
@@ -71,6 +79,13 @@ public class Hero extends Mover {
         }
         return diamant;
     }
+    public int getSter() {
+        if (isTouching(Ster.class)) {
+            removeTouching(Ster.class);
+            ster++;
+        }
+        return ster;
+    }
 
     public int getGroeneMunt() {
         if (isTouching(GroeneMunt.class)) {
@@ -79,7 +94,6 @@ public class Hero extends Mover {
         }
         return groeneMunt;
     }
-
     public int getBlauweMunt() {
         if (isTouching(BlauweMunt.class)) {
             removeTouching(BlauweMunt.class);
@@ -87,7 +101,6 @@ public class Hero extends Mover {
         }
         return blauweMunt;
     }
-
     public int getRozeMunt() {
         if (isTouching(RozeMunt.class)) {
             removeTouching(RozeMunt.class);
@@ -95,16 +108,19 @@ public class Hero extends Mover {
         }
         return rozeMunt;
     }
-
-    public boolean onGround() {
-        Actor under = getOneObjectAtOffset(0, getHeight() / 2, Tile.class);
-        Tile tile = (Tile) under;
-        return tile != null && tile.isSolid == true;
+    
+    public int getBlauweSleutel() {
+        if (isTouching(BlauweSleutel.class)) {
+            removeTouching(BlauweSleutel.class);
+            blauweSleutel++;
+        }
+        return blauweSleutel;
     }
-
+    
     public void handleInput() {
-        if(onGround() == false) setImage("alien"+kleur+"_jump"+direction+".png");
-        if (keyUp() && onGround() == true) {
+        animateJump();
+        animateStanding();
+        if (keyUp() && velocityY == 0) {
             velocityY = -jumpHeight;
             
         }
@@ -112,26 +128,22 @@ public class Hero extends Mover {
         if (keyLeft()) {
             velocityX = -walkSpeed;
             
-            if (animationTimer % animationTimerFrame == 0 && onGround()) {
-                animateLeft();
-            }
+            if (animationTimer % animationTimerFrame == 0
+                    && velocityY == 0) animateLeft();
             animationTimer++;
+            
             direction = 1;
         }
 
         if (keyRight()) {
             velocityX = walkSpeed;
             
-            if (animationTimer % animationTimerFrame == 0 && onGround()) {
-                animateRight();
-            }
+            if (animationTimer % animationTimerFrame == 0
+                    && velocityY == 0) animateRight();
             animationTimer++;
             direction = 2;
         }
-        if(keyUp() == false && keyLeft() == false && keyRight() == false
-                && onGround() == true) {
-            setImage("alien"+kleur+"_stand"+direction+".png");
-        }
+        
     }
 
     public void changePlayer() {
@@ -181,6 +193,16 @@ public class Hero extends Mover {
         }
 
         frame++;
+    }
+    
+    public void animateJump() {
+        if(velocityY != 0) setImage("alien"+kleur+"_jump"+direction+".png");
+    }
+    public void animateStanding() {
+        if(keyUp() == false && keyLeft() == false && keyRight() == false
+                && velocityY == 0) {
+            setImage("alien"+kleur+"_stand"+direction+".png");
+        }
     }
 
     public int getWidth() {
