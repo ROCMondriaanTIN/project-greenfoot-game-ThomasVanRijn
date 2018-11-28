@@ -16,8 +16,8 @@ public class ScreenHome extends World {
     public ScreenHome() {
         // Create a new world with 600x400 cells with a cell size of 1x1 pixels.
         super(1000, 800, 1);
-        //Button button = new Button();
-        //addObject(button, 500, 650);
+        addObject(new Button("ButtonSelect.png"), 654, 555);
+        addObject(new Button("ButtonStart.png"), 354, 555);
     }
     
     public void act() {

@@ -48,6 +48,7 @@ public class TestWorld extends World {
         // Declareren en initialiseren van een main karakter van het spel mijne heet Hero. Deze klasse 
         // moet de klasse Mover extenden voor de camera om te werken
         Hero hero = new Hero();
+        
 
         // Laat de camera een object volgen. Die moet een Mover instatie zijn of een extentie hiervan.
         camera.follow(hero);
@@ -57,7 +58,10 @@ public class TestWorld extends World {
         addObject(hero, 300, 700);
 
         addObject(new KeyBlue(), 1100, 1010);
-        addObject(new KeyGreen(),700, 950);
+        addObject(new Ster(),700, 950);
+        addObject(new Ster(),800, 950);
+        addObject(new Ster(),900, 950);
+        addObject(new SterOmtrek(),500, 50);
         //addObject(new KeyRed(),500, 1010);
         //addObject(new KeyYellow(),500, 1010);
 

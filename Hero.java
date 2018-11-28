@@ -34,6 +34,8 @@ public class Hero extends Mover {
     int animationTimerFrame = 10;
     int kleur = 1;
     int direction = 2;
+    
+    Scoreboard sb;
 
     public Hero() {
         super();
@@ -43,9 +45,8 @@ public class Hero extends Mover {
         setImage("alien1_stand2.png");
     }
     
-    
     @Override
-    public void act() {
+    public void act() {        
         changePlayer();
         handleInput();
 
@@ -62,6 +63,11 @@ public class Hero extends Mover {
         getRozeMunt();
 
         getBlauweSleutel();
+        
+        if(sb == null) {
+            sb = new Scoreboard();
+            getWorld().addObject(sb, -10, -10);
+        }
 
         velocityX *= drag;
         velocityY += acc;
@@ -104,6 +110,7 @@ public class Hero extends Mover {
     public boolean getKeyGreen() {
         if (isTouching(KeyGreen.class)) {
             removeTouching(KeyGreen.class);
+            sb.updateKeyGreen();
             keyGreen = true;
         }
         return keyGreen;
@@ -123,12 +130,11 @@ public class Hero extends Mover {
         return diamant;
     }
 
-    public int getSter() {
+    public void getSter() {
         if (isTouching(Ster.class)) {
             removeTouching(Ster.class);
-            ster++;
-        }
-        return ster;
+            sb.updateSter();
+         }
     }
 
     public int getGroeneMunt() {
@@ -178,7 +184,7 @@ public class Hero extends Mover {
             }
             animationTimer++;
         }
-        if (keyRight()) {
+        if (keyRight() && keyLeft() == false) {
             velocityX = walkSpeed;
             direction = 2;
             if (animationTimer % animationTimerFrame == 0
