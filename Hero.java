@@ -94,6 +94,7 @@ public class Hero extends Mover {
         if (isTouching(KeyBlue.class)) {
             removeTouching(KeyBlue.class);
             keyBlue = true;
+            sb.updateKeyBlue();
         }
         return keyBlue;
     }
@@ -102,8 +103,6 @@ public class Hero extends Mover {
         if (isTouching(Door.class) && keyBlue) {
             level ++;
             Greenfoot.setWorld(new ScreenSelect());
-            
-            
         }
     }
 
@@ -126,6 +125,7 @@ public class Hero extends Mover {
         if (isTouching(Diamant.class)) {
             removeTouching(Diamant.class);
             diamant++;
+            sb.updateDiamant();
         }
         return diamant;
     }
@@ -239,8 +239,8 @@ public class Hero extends Mover {
     }
 
     public void animateStanding() {
-        if (keyUp() == false && keyLeft() == false && keyRight() == false
-                && velocityY == 0) {
+        if (!keyUp() && !keyLeft() && !keyRight()
+                && velocityY == 0 || keyLeft() && keyRight() && !keyUp()) {
             setImage("alien" + kleur + "_stand" + direction + ".png");
         }
     }

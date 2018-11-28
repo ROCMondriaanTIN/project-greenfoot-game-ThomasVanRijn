@@ -56,12 +56,23 @@ public class TestWorld extends World {
         // Alle objecten toevoegen aan de wereld: camera, main karakter en mogelijke enemies
         addObject(camera, 0, 0);
         addObject(hero, 300, 700);
-
-        addObject(new KeyBlue(), 1100, 1010);
+        
         addObject(new Ster(),700, 950);
         addObject(new Ster(),800, 950);
         addObject(new Ster(),900, 950);
         addObject(new SterOmtrek(),500, 50);
+        
+        addObject(new KeyGreen(),500, 1010);
+        addObject(new KeyBlue(), 200, 1010);
+        addObject(new Diamant(), 600, 950);
+        
+        addObject(new KeyHud("hud_keyBlue_disabled.png"),50, 750);
+        addObject(new KeyHud("hud_keyGreen_disabled.png"),100, 750);
+        addObject(new KeyHud("hud_keyRed_disabled.png"),150, 750);
+        addObject(new KeyHud("hud_keyYellow_disabled.png"),200, 750);
+        
+        addObject(new DiamantHud1("hud_gem_blue_disabled.png"),950, 750);
+        
         //addObject(new KeyRed(),500, 1010);
         //addObject(new KeyYellow(),500, 1010);
 
