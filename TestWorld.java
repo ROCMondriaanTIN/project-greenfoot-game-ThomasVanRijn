@@ -8,9 +8,9 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 public class TestWorld extends World {
 
     private CollisionEngine ce;
-
+    public TileEngine te;
     /**
-     * Constructor for objects of class TestWorld.
+     * Constructor for objects of class TestWorld.s
      *
      */
     public TestWorld() {
@@ -41,7 +41,7 @@ public class TestWorld extends World {
             {65, 65, 65, 65, 65, 65, 65, 65, 65, 65, 65, 65, 65, 65, 65, 65, 93, 93, 93, 93},
             };
             // Declareren en initialiseren van de TileEngine klasse om de map aan de world toe te voegen
-            TileEngine te = new TileEngine(this, 70, 70, map);
+            te = new TileEngine(this, 70, 70, map);
         // Declarenre en initialiseren van de camera klasse met de TileEngine klasse 
         // zodat de camera weet welke tiles allemaal moeten meebewegen met de camera
         Camera camera = new Camera(te);
@@ -49,33 +49,16 @@ public class TestWorld extends World {
         // moet de klasse Mover extenden voor de camera om te werken
         Hero hero = new Hero();
         
-
         // Laat de camera een object volgen. Die moet een Mover instatie zijn of een extentie hiervan.
         camera.follow(hero);
 
         // Alle objecten toevoegen aan de wereld: camera, main karakter en mogelijke enemies
         addObject(camera, 0, 0);
-        addObject(hero, 300, 700);
+        addObject(hero, 600, 865);
         
-        addObject(new Ster(),700, 950);
-        addObject(new Ster(),800, 950);
-        addObject(new Ster(),900, 950);
+        addObject(new KeyGreen(), 800, 1010);
+        
         addObject(new SterOmtrek(),500, 50);
-        
-        addObject(new KeyGreen(),500, 1010);
-        addObject(new KeyBlue(), 200, 1010);
-        addObject(new Diamant(), 600, 950);
-        
-        addObject(new KeyHud("hud_keyBlue_disabled.png"),50, 750);
-        addObject(new KeyHud("hud_keyGreen_disabled.png"),100, 750);
-        addObject(new KeyHud("hud_keyRed_disabled.png"),150, 750);
-        addObject(new KeyHud("hud_keyYellow_disabled.png"),200, 750);
-        
-        addObject(new DiamantHud1("hud_gem_blue_disabled.png"),950, 750);
-        
-        //addObject(new KeyRed(),500, 1010);
-        //addObject(new KeyYellow(),500, 1010);
-
         // Initialiseren van de CollisionEngine zodat de speler niet door de tile heen kan lopen.
         // De collision engine kijkt alleen naar de tiles die de variabele solid op true hebben staan.
         ce = new CollisionEngine(te, camera);

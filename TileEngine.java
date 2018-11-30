@@ -7,6 +7,9 @@ import java.util.List;
  * @author R. Springer
  */
 public class TileEngine {
+    public TileEngine() {
+        System.out.println("if u see this, this is very bad");
+    }
 
     public static int TILE_WIDTH;
     public static int TILE_HEIGHT;
@@ -176,6 +179,7 @@ public class TileEngine {
      * @return true if the tile has successfully been removed
      */
     public boolean removeTileAt(int colom, int row) {
+        
         if (row < 0 || row >= MAP_HEIGHT || colom < 0 || colom >= MAP_WIDTH) {
             return false;
         }
@@ -187,7 +191,6 @@ public class TileEngine {
         }
         return false;
     }
-
     /**
      * Removes tile at the given x and y position
      *

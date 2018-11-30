@@ -33,14 +33,20 @@ public class ScreenSelect extends World {
         addObject(new Button("LevelLock.png"), 590, 566);
         addObject(new Button("LevelLock.png"), 770, 566);
 
-        if (Hero.level == 1) {
-            addObject(new Button("Level1Unlock.png"), 230, 234);
-        } else if (Hero.level == 2) {
-            addObject(new Button("Level1Gehaalt.png"), 239, 239);
-            addObject(new Button("Level2Unlock.png"), 410, 234);
-        } else if (Hero.level == 3) {
-            addObject(new Button("Level1Gehaalt.png"), 239, 239);
-            addObject(new Button("Level2Gehaalt.png"), 410, 239);
+        switch (Hero.level) {
+            case 1:
+                addObject(new Button("Level1Unlock.png"), 230, 234);
+                break;
+            case 2:
+                addObject(new Button("Level1Gehaalt.png"), 239, 239);
+                addObject(new Button("Level2Unlock.png"), 410, 234);
+                break;
+            case 3:
+                addObject(new Button("Level1Gehaalt.png"), 239, 239);
+                addObject(new Button("Level2Gehaalt.png"), 410, 239);
+                break;
+            default:
+                break;
         }
 
     }

@@ -6,7 +6,8 @@ import greenfoot.*;
  * @author R. Springer
  */
 public class Hero extends Mover {
-
+    //TileEngine te = new TileEngine();
+    
     private final double gravity;
     private final double acc;
     private final double drag;
@@ -26,7 +27,7 @@ public class Hero extends Mover {
 
     public int blauweSleutel;
 
-    public int jumpHeight = 13;
+    public int jumpHeight = 14;
     public int walkSpeed = 5;
 
     int frame = 1;
@@ -46,7 +47,9 @@ public class Hero extends Mover {
     }
     
     @Override
-    public void act() {        
+    public void act() {
+        touchingWater();
+        
         changePlayer();
         handleInput();
 
@@ -89,6 +92,12 @@ public class Hero extends Mover {
             }
         }
     }
+    //Hier kijk ik of de hero het water aanraakt, zo ja dan reset het level.
+    public void touchingWater() {
+        if(isTouching(WaterTile.class)) {
+            Greenfoot.setWorld(new Level1());
+        }
+    }
 
     public boolean getKeyBlue() {
         if (isTouching(KeyBlue.class)) {
@@ -114,11 +123,18 @@ public class Hero extends Mover {
         }
         return keyGreen;
     }
-
+    
     public void touchingGreenLock() {
-        if (isTouching(LockGreen.class) && keyGreen) {
-            //removeTouching(LockGreen.class);
-        }
+        Actor a = this.getOneIntersectingObject(LockGreen.class);
+            if(a != null && keyGreen){
+                Tile lockGreen = (Tile)a;
+                TestWorld testWorld = (TestWorld)getWorld();
+                testWorld.te.removeTile(lockGreen);
+                
+            }
+        
+        
+        
     }
 
     public int getDiamant() {
@@ -194,6 +210,12 @@ public class Hero extends Mover {
             animationTimer++;
 
         }
+    }
+    
+    public boolean onGround() {
+        Actor under = getOneObjectAtOffset(0, getImage().getHeight() / 2, Tile.class);
+        Tile tile = (Tile) under;
+        return tile != null && tile.isSolid == true;
     }
 
     public void changePlayer() {
