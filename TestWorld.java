@@ -54,9 +54,11 @@ public class TestWorld extends World {
 
         // Alle objecten toevoegen aan de wereld: camera, main karakter en mogelijke enemies
         addObject(camera, 0, 0);
-        addObject(hero, 600, 865);
+        addObject(hero, 525, 1005);
         
-        addObject(new KeyGreen(), 800, 1010);
+        addObject(new KeyGreen(), 400, 1010);
+        addObject(new KeyRed(), 300, 1010);
+        addObject(new KeyYellow(), 200, 1010);
         
         addObject(new SterOmtrek(),500, 50);
         // Initialiseren van de CollisionEngine zodat de speler niet door de tile heen kan lopen.

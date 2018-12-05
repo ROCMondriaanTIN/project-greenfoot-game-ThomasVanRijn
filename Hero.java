@@ -7,13 +7,13 @@ import greenfoot.*;
  */
 public class Hero extends Mover {
     //TileEngine te = new TileEngine();
-    
+
     private final double gravity;
     private final double acc;
     private final double drag;
     private int diamant;
     private int ster;
-    
+
     public static int level = 1;
 
     public boolean keyBlue = false;
@@ -35,7 +35,7 @@ public class Hero extends Mover {
     int animationTimerFrame = 10;
     int kleur = 1;
     int direction = 2;
-    
+
     Scoreboard sb;
 
     public Hero() {
@@ -45,18 +45,25 @@ public class Hero extends Mover {
         drag = 0.8;
         setImage("alien1_stand2.png");
     }
-    
+
     @Override
     public void act() {
         touchingWater();
-        
+
         changePlayer();
         handleInput();
 
         getKeyBlue();
         touchingDoor();
+
         getKeyGreen();
-        touchingGreenLock();
+        touchingLockGreen();
+
+        getKeyRed();
+        touchingLockRed();
+
+        getKeyYellow();
+        touchingLockYellow();
 
         getDiamant();
         getSter();
@@ -66,8 +73,8 @@ public class Hero extends Mover {
         getRozeMunt();
 
         getBlauweSleutel();
-        
-        if(sb == null) {
+
+        if (sb == null) {
             sb = new Scoreboard();
             getWorld().addObject(sb, -10, -10);
         }
@@ -92,9 +99,10 @@ public class Hero extends Mover {
             }
         }
     }
+
     //Hier kijk ik of de hero het water aanraakt, zo ja dan reset het level.
     public void touchingWater() {
-        if(isTouching(WaterTile.class)) {
+        if (isTouching(WaterTile.class)) {
             Greenfoot.setWorld(new Level1());
         }
     }
@@ -110,7 +118,7 @@ public class Hero extends Mover {
 
     public void touchingDoor() {
         if (isTouching(Door.class) && keyBlue) {
-            level ++;
+            level++;
             Greenfoot.setWorld(new ScreenSelect());
         }
     }
@@ -123,18 +131,56 @@ public class Hero extends Mover {
         }
         return keyGreen;
     }
-    
-    public void touchingGreenLock() {
+
+    public void touchingLockGreen() {
         Actor a = this.getOneIntersectingObject(LockGreen.class);
-            if(a != null && keyGreen){
-                Tile lockGreen = (Tile)a;
-                TestWorld testWorld = (TestWorld)getWorld();
-                testWorld.te.removeTile(lockGreen);
-                
-            }
-        
-        
-        
+        if (a != null && keyGreen) {
+            Tile lockGreen = (Tile) a;
+            TestWorld Level2 = (TestWorld) getWorld();
+            Level2.te.removeTile(lockGreen);
+            getWorld().removeObjects(getWorld().getObjects(KeyGreenHud.class));
+        }
+    }
+
+    public boolean getKeyRed() {
+        if (isTouching(KeyRed.class)) {
+            removeTouching(KeyRed.class);
+            sb.updateKeyRed();
+            keyRed = true;
+        }
+        return keyRed;
+    }
+
+    public void touchingLockRed() {
+        Actor a = this.getOneIntersectingObject(LockRed.class);
+        if (a != null && keyRed) {
+            keyRed = false;
+            Tile lockRed = (Tile) a;
+            TestWorld Level4 = (TestWorld) getWorld();
+            Level4.te.removeTile(lockRed);
+            //getWorld().removeObject(KeyRedHud.class);
+            getWorld().removeObjects(getWorld().getObjects(KeyRedHud.class));
+        }
+    }
+
+    public boolean getKeyYellow() {
+        if (isTouching(KeyYellow.class)) {
+            removeTouching(KeyYellow.class);
+            sb.updateKeyYellow();
+            keyYellow = true;
+        }
+        return keyYellow;
+    }
+
+    public void touchingLockYellow() {
+        Actor a = this.getOneIntersectingObject(LockYellow.class);
+        if (a != null && keyYellow) {
+            keyRed = false;
+            Tile lockYellow = (Tile) a;
+            TestWorld Level2 = (TestWorld) getWorld();
+            Level2.te.removeTile(lockYellow);
+            getWorld().removeObjects(getWorld().getObjects(KeyYellowHud.class));
+        }
     }
 
     public int getDiamant() {
@@ -148,9 +194,12 @@ public class Hero extends Mover {
 
     public void getSter() {
         if (isTouching(Ster.class)) {
-            removeTouching(Ster.class);
+            if (ster < 3) {
+                removeTouching(Ster.class);
+            }
             sb.updateSter();
-         }
+            ster ++;
+        }
     }
 
     public int getGroeneMunt() {
@@ -211,7 +260,7 @@ public class Hero extends Mover {
 
         }
     }
-    
+
     public boolean onGround() {
         Actor under = getOneObjectAtOffset(0, getImage().getHeight() / 2, Tile.class);
         Tile tile = (Tile) under;

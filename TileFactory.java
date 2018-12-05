@@ -399,11 +399,11 @@ public class TileFactory {
                 tile.isSolid = true;
                 break;
             case 98:
-                tile = new Tile("lock_red.png", TileEngine.TILE_WIDTH, TileEngine.TILE_HEIGHT);
+                tile = new LockRed("lock_red.png", TileEngine.TILE_WIDTH, TileEngine.TILE_HEIGHT);
                 tile.isSolid = true;
                 break;
             case 99:
-                tile = new Tile("lock_yellow.png", TileEngine.TILE_WIDTH, TileEngine.TILE_HEIGHT);
+                tile = new LockYellow("lock_yellow.png", TileEngine.TILE_WIDTH, TileEngine.TILE_HEIGHT);
                 tile.isSolid = true;
                 break;
             case 100:

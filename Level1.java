@@ -8,6 +8,7 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 public class Level1 extends World {
 
     private CollisionEngine ce;
+
     /**
      * Constructor for objects of class Level1.s
      *
@@ -37,8 +38,7 @@ public class Level1 extends World {
             {65, 65, 65, 65, 65, 65, 65, 65, 65, 65, 65, 65, 65, 65, 65, 65, 65, 65, 65, 65, 65, 65, 65, 65, 65, 65, 65, 93, 93, 93, 93, 93, 93, 93, 93, 93, 93, 93, 65, 65, 65, 65, 65, 65, 65, 65, 65, 65, 65, 65},
             {65, 65, 65, 65, 65, 65, 65, 65, 65, 65, 65, 65, 65, 65, 65, 65, 65, 65, 65, 65, 65, 65, 65, 65, 65, 65, 65, 93, 93, 93, 93, 93, 93, 93, 93, 93, 93, 93, 65, 65, 65, 65, 65, 65, 65, 65, 65, 65, 65, 65},
             {65, 65, 65, 65, 65, 65, 65, 65, 65, 65, 65, 65, 65, 65, 65, 65, 65, 65, 65, 65, 65, 65, 65, 65, 65, 65, 65, 93, 93, 93, 93, 93, 93, 93, 93, 93, 93, 93, 65, 65, 65, 65, 65, 65, 65, 65, 65, 65, 65, 65},
-            {65, 65, 65, 65, 65, 65, 65, 65, 65, 65, 65, 65, 65, 65, 65, 65, 65, 65, 65, 65, 65, 65, 65, 65, 65, 65, 65, 93, 93, 93, 93, 93, 93, 93, 93, 93, 93, 93, 65, 65, 65, 65, 65, 65, 65, 65, 65, 65, 65, 65},
-        };
+            {65, 65, 65, 65, 65, 65, 65, 65, 65, 65, 65, 65, 65, 65, 65, 65, 65, 65, 65, 65, 65, 65, 65, 65, 65, 65, 65, 93, 93, 93, 93, 93, 93, 93, 93, 93, 93, 93, 65, 65, 65, 65, 65, 65, 65, 65, 65, 65, 65, 65},};
         // Declareren en initialiseren van de TileEngine klasse om de map aan de world toe te voegen
         TileEngine te = new TileEngine(this, 70, 70, map);
         // Declarenre en initialiseren van de camera klasse met de TileEngine klasse 
@@ -54,23 +54,19 @@ public class Level1 extends World {
         // Alle objecten toevoegen aan de wereld: camera, main karakter en mogelijke enemies
         addObject(camera, 0, 0);
         addObject(hero, 600, 865);
-        
+
         //Hier maak je de hud aan.
         addObject(new SterOmtrek(), 500, 50);
-        addObject(new KeyHud("hud_keyBlue_disabled.png"), 50, 750);
-        addObject(new KeyHud("hud_keyGreen_disabled.png"), 100, 750);
-        addObject(new KeyHud("hud_keyRed_disabled.png"), 150, 750);
-        addObject(new KeyHud("hud_keyYellow_disabled.png"), 200, 750);
-        addObject(new DiamantHud1("hud_gem_blue_disabled.png"), 950, 750);
-        
+
         //Hier add je alle objecten.
         addObject(new BlauweMunt(), 3301, 1010);
-        
+
         addObject(new Ster(), 2550, 310);
         addObject(new Ster(), 1550, 750);
         addObject(new Ster(), 945, 315);
         addObject(new KeyBlue(), 37, 875);
-        
+        addObject(new Diamant(), 1789, 200);
+
         // De collision engine kijkt alleen naar de tiles die de variabele solid op true hebben staan.
         ce = new CollisionEngine(te, camera);
         // Toevoegen van de mover instantie of een extentie hiervan

@@ -22,24 +22,30 @@ public class Button extends Actor {
      */
     @Override
     public void act() {
-        // Add your action code here.
         if (Greenfoot.mouseClicked(this)) {
-            
-            if ("ButtonStart".equals(name)) {
-                if (Hero.level == 1) {
+            switch (name) {
+                case "ButtonStart":
+                    if (Hero.level == 1) {
+                        Greenfoot.setWorld(new Level1());
+                    }
+                    break;
+                case "ButtonSelect":
+                    Greenfoot.setWorld(new ScreenSelect());
+                    break;
+                case "arrowLeft":
+                    Greenfoot.setWorld(new ScreenHome());
+                    break;
+                case "Level1Unlock":
+                    Greenfoot.setWorld(new Level1());
+                    break;
+                case "Level1Gehaalt":
+                    Greenfoot.setWorld(new Level1());
+                    break;
+                case "Level2Unlock":
                     Greenfoot.setWorld(new TestWorld());
-                }
-            } else if ("ButtonSelect".equals(name)) {
-                Greenfoot.setWorld(new ScreenSelect());
-            } else if ("arrowLeft".equals(name)) {
-                Greenfoot.setWorld(new ScreenHome());
-            } else if ("Level1Unlock".equals(name)) {
-                Greenfoot.setWorld(new TestWorld());
-            } else if ("Level1Gehaalt".equals(name)) {
-                Greenfoot.setWorld(new TestWorld());
-            } else if ("Level1Gehaalt".equals(name)) {
-                Greenfoot.setWorld(new TestWorld());
+                    break;
             }
         }
+
     }
 }

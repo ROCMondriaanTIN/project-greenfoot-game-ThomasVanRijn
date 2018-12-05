@@ -1,22 +1,23 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 
 /**
- * Write a description of class KeyHud here.
+ * Write a description of class LockYellow here.
  * 
  * @author (your name) 
  * @version (a version number or a date)
  */
-public class KeyHud extends Mover
+public class LockYellow extends Tile
 {
-    public KeyHud(String image) {
-        setImage(image);
+    public LockYellow(String image, int width, int height) {
+        super(image, width, height);
     }
     /**
-     * Act - do whatever the KeyHud wants to do. This method is called whenever
+     * Act - do whatever the LockYellow wants to do. This method is called whenever
      * the 'Act' or 'Run' button gets pressed in the environment.
      */
     public void act() 
     {
+        
         // Add your action code here.
     }    
 }

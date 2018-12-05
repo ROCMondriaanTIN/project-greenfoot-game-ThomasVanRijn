@@ -16,6 +16,7 @@ public class ScreenSelect extends World {
     public ScreenSelect() {
         // Create a new world with 600x400 cells with a cell size of 1x1 pixels.
         super(1000, 800, 1);
+        this.setBackground("bg.png");
         addObject(new Button("arrowLeft.png"), 67, 60);
 
         addObject(new Button("LevelLock.png"), 230, 234);

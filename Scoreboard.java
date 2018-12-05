@@ -11,10 +11,12 @@ public class Scoreboard extends Mover {
 
     public boolean keyGreen = false;
     public boolean keyBlue = false;
+    public boolean keyRed = false;
+    public boolean keyYellow = false;
     public int ster = 1;
     public boolean diamant = false;
     
-
+    private int keyLocation = 50;
     /**
      * Act - do whatever the Scoreboard wants to do. This method is called
      * whenever the 'Act' or 'Run' button gets pressed in the environment.
@@ -25,11 +27,23 @@ public class Scoreboard extends Mover {
     
     public void updateKeyBlue() {
         keyBlue = true;
-        getWorld().addObject(new KeyBlueHud(), 50, 750);
+        getWorld().addObject(new KeyBlueHud(), keyLocation, 750);
+        keyLocation += 50;
     }
     public void updateKeyGreen() {
         keyGreen = true;
-        getWorld().addObject(new KeyGreenHud(), 100, 750);
+        getWorld().addObject(new KeyGreenHud(), keyLocation, 750);
+        keyLocation += 50;
+    }
+    public void updateKeyRed() {
+        keyRed = true;
+        getWorld().addObject(new KeyRedHud(), keyLocation, 750);
+        keyLocation += 50;
+    }
+    public void updateKeyYellow() {
+        keyYellow = true;
+        getWorld().addObject(new KeyYellowHud(), keyLocation, 750);
+        keyLocation += 50;
     }
     
     public void updateDiamant() {
