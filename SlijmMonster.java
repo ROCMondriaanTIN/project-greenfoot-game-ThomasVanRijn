@@ -51,10 +51,10 @@ public class SlijmMonster extends Mover {
         }
 
         checkMovement();
-        if (animationTimer % 15 == 0 && checkMovement == false) {
+        if (animationTimer % 25 == 0 && checkMovement == false) {
             animateRight();
         }
-        if (animationTimer % 15 == 0 && checkMovement == true) {
+        if (animationTimer % 25 == 0 && checkMovement == true) {
             animateLeft();
         }
         animationTimer++;

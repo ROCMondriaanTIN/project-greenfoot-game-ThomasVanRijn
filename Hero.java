@@ -88,13 +88,13 @@ public class Hero extends Mover {
 
         for (Actor enemy : getIntersectingObjects(Vlieg.class)) {
             if (enemy != null) {
-                getWorld().removeObject(this);
+                Greenfoot.setWorld(new Level1());
                 return;
             }
         }
         for (Actor enemy : getIntersectingObjects(SlijmMonster.class)) {
             if (enemy != null) {
-                getWorld().removeObject(this);
+                Greenfoot.setWorld(new Level1());
                 return;
             }
         }
@@ -158,7 +158,6 @@ public class Hero extends Mover {
             Tile lockRed = (Tile) a;
             TestWorld Level4 = (TestWorld) getWorld();
             Level4.te.removeTile(lockRed);
-            //getWorld().removeObject(KeyRedHud.class);
             getWorld().removeObjects(getWorld().getObjects(KeyRedHud.class));
         }
     }
@@ -198,7 +197,7 @@ public class Hero extends Mover {
                 removeTouching(Ster.class);
             }
             sb.updateSter();
-            ster ++;
+            ster++;
         }
     }
 
@@ -237,7 +236,7 @@ public class Hero extends Mover {
     public void handleInput() {
         animateJump();
         animateStanding();
-        if (keyUp() && velocityY == 0) {
+        if (keyUp() && onGround()) {
             velocityY = -jumpHeight;
         }
         if (keyLeft() && keyRight() == false) {
@@ -262,9 +261,14 @@ public class Hero extends Mover {
     }
 
     public boolean onGround() {
-        Actor under = getOneObjectAtOffset(0, getImage().getHeight() / 2, Tile.class);
-        Tile tile = (Tile) under;
-        return tile != null && tile.isSolid == true;
+        Actor underLeft = getOneObjectAtOffset(-getImage().getWidth() / 2, getImage().getHeight() / 2, Tile.class);
+        Actor underRight = getOneObjectAtOffset(getImage().getWidth() / 2, getImage().getHeight() / 2, Tile.class);
+        Tile tile1 = (Tile) underLeft;
+        Tile tile2 = (Tile) underRight;
+
+        //return (underCenter != null || underLeft != null || underRight != null) && tile1.isSolid == true;
+        return (tile1 != null && tile1.isSolid) || (tile2 != null && tile2.isSolid);
+        //return tile1 != null && tile1.isSolid == true;
     }
 
     public void changePlayer() {
