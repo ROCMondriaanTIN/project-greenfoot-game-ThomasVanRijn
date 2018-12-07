@@ -32,13 +32,13 @@ public class TestWorld extends World {
             {-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1},
             {-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1},
             {-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1},
-            {-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 59, -1, -1, -1, -1, -1},
-            {-1, -1, -1, -1, -1, -1, -1, -1, 97, -1, 98, -1, 99, -1, 58, -1, -1, -1, -1, -1},
-            {82, 82, 82, 82, 82, 82, 82, 82, 82, 82, 82, 82, 82, 82, 82, 82, 94, 94, 94, 94},
-            {65, 65, 65, 65, 65, 65, 65, 65, 65, 65, 65, 65, 65, 65, 65, 65, 93, 93, 93, 93},
-            {65, 65, 65, 65, 65, 65, 65, 65, 65, 65, 65, 65, 65, 65, 65, 65, 93, 93, 93, 93},
-            {65, 65, 65, 65, 65, 65, 65, 65, 65, 65, 65, 65, 65, 65, 65, 65, 93, 93, 93, 93},
-            {65, 65, 65, 65, 65, 65, 65, 65, 65, 65, 65, 65, 65, 65, 65, 65, 93, 93, 93, 93},
+            {-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1},
+            {-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1},
+            {94, 94, 82, -1, 82, 82, 82, 82, 82, 82, 82, 82, 82, -1, 82, 82, 94, 94, 94, 94},
+            {93, 93, 65, -1, -1, 65, 65, 65, 65, 65, 65, 65, -1, -1, 65, 65, 93, 93, 93, 93},
+            {93, 93, 65, 65, -1, -1, 65, 65, 65, 65, 65, -1, -1, 65, 65, 65, 93, 93, 93, 93},
+            {93, 93, 65, 65, 65, -1, -1, -1, -1, -1, -1, -1, 65, 65, 65, 65, 93, 93, 93, 93},
+            {93, 93, 65, 65, 65, 65, 65, 65, 65, 65, 65, 65, 65, 65, 65, 65, 93, 93, 93, 93},
             };
             // Declareren en initialiseren van de TileEngine klasse om de map aan de world toe te voegen
             te = new TileEngine(this, 70, 70, map);
@@ -54,13 +54,10 @@ public class TestWorld extends World {
 
         // Alle objecten toevoegen aan de wereld: camera, main karakter en mogelijke enemies
         addObject(camera, 0, 0);
-        addObject(hero, 525, 1005);
+        addObject(hero, 300, 1005);
         
-        addObject(new KeyGreen(), 400, 1010);
-        addObject(new KeyRed(), 300, 1010);
-        addObject(new KeyYellow(), 200, 1010);
-        
-        addObject(new SterOmtrek(),500, 50);
+        // Objecten
+        addObject(new RozeMunt(), 700, 1010);
         // Initialiseren van de CollisionEngine zodat de speler niet door de tile heen kan lopen.
         // De collision engine kijkt alleen naar de tiles die de variabele solid op true hebben staan.
         ce = new CollisionEngine(te, camera);

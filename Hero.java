@@ -35,6 +35,7 @@ public class Hero extends Mover {
     int animationTimerFrame = 10;
     int kleur = 1;
     int direction = 2;
+    
 
     Scoreboard sb;
 
@@ -236,6 +237,8 @@ public class Hero extends Mover {
     public void handleInput() {
         animateJump();
         animateStanding();
+        
+        //if (Greenfoot.isKeyDown("space")) velocityY = -15;
         if (keyUp() && onGround()) {
             velocityY = -jumpHeight;
         }
@@ -259,16 +262,14 @@ public class Hero extends Mover {
 
         }
     }
-
+    
     public boolean onGround() {
         Actor underLeft = getOneObjectAtOffset(-getImage().getWidth() / 2, getImage().getHeight() / 2, Tile.class);
-        Actor underRight = getOneObjectAtOffset(getImage().getWidth() / 2, getImage().getHeight() / 2, Tile.class);
         Tile tile1 = (Tile) underLeft;
+        Actor underRight = getOneObjectAtOffset(getImage().getWidth() / 2, getImage().getHeight() / 2, Tile.class);
         Tile tile2 = (Tile) underRight;
 
-        //return (underCenter != null || underLeft != null || underRight != null) && tile1.isSolid == true;
         return (tile1 != null && tile1.isSolid) || (tile2 != null && tile2.isSolid);
-        //return tile1 != null && tile1.isSolid == true;
     }
 
     public void changePlayer() {
