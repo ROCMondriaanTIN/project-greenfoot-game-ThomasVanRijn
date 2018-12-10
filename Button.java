@@ -25,8 +25,13 @@ public class Button extends Actor {
         if (Greenfoot.mouseClicked(this)) {
             switch (name) {
                 case "ButtonStart":
-                    if (Hero.level == 1) {
-                        Greenfoot.setWorld(new Level1());
+                    switch (Hero.level) {
+                        case 1:
+                            Greenfoot.setWorld(new Level1());
+                            break;
+                        case 2:
+                            Greenfoot.setWorld(new Level2());
+                            break;
                     }
                     break;
                 case "ButtonSelect":
@@ -35,14 +40,23 @@ public class Button extends Actor {
                 case "arrowLeft":
                     Greenfoot.setWorld(new ScreenHome());
                     break;
-                case "Level1Unlock":
+                case "DiamandLevels":
+                    Greenfoot.setWorld(new ScreenSelectDiamant());
+                    break;
+                case "Level1Unlocked":
                     Greenfoot.setWorld(new Level1());
                     break;
                 case "Level1Gehaalt":
                     Greenfoot.setWorld(new Level1());
                     break;
-                case "Level2Unlock":
-                    Greenfoot.setWorld(new TestWorld());
+                case "Level1Gehaalt+Diamant":
+                    Greenfoot.setWorld(new Level1());
+                    break;
+                case "DiamandLevel1":
+                    Greenfoot.setWorld(new Level1Diamant());
+                    break;
+                case "Level2Unlocked":
+                    Greenfoot.setWorld(new Level2());
                     break;
             }
         }

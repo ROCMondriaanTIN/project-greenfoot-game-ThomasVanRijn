@@ -11,9 +11,19 @@ public class Hero extends Mover {
     private final double gravity;
     private final double acc;
     private final double drag;
-    private int diamant;
+
+    public static boolean level1Gehaald;
+    public static boolean level1DiamantGehaald;
+    public static boolean level2Gehaald;
+
+    public static int level1Sterren;
+
+    public static boolean diamant1;
+    public static boolean diamant2;
+
     private int ster;
 
+    public static double world;
     public static int level = 1;
 
     public boolean keyBlue = false;
@@ -28,14 +38,13 @@ public class Hero extends Mover {
     public int blauweSleutel;
 
     public int jumpHeight = 14;
-    public int walkSpeed = 5;
+    public int walkSpeed = 6;
 
     int frame = 1;
     int animationTimer = 0;
     int animationTimerFrame = 10;
     int kleur = 1;
     int direction = 2;
-    
 
     Scoreboard sb;
 
@@ -49,6 +58,8 @@ public class Hero extends Mover {
 
     @Override
     public void act() {
+        checkLevel();
+
         touchingWater();
 
         changePlayer();
@@ -89,22 +100,41 @@ public class Hero extends Mover {
 
         for (Actor enemy : getIntersectingObjects(Vlieg.class)) {
             if (enemy != null) {
-                Greenfoot.setWorld(new Level1());
+                respawn();
                 return;
             }
         }
         for (Actor enemy : getIntersectingObjects(SlijmMonster.class)) {
             if (enemy != null) {
-                Greenfoot.setWorld(new Level1());
+                respawn();
                 return;
             }
         }
     }
 
+    public void respawn() {
+        if (getWorld() instanceof Level1) {
+            Greenfoot.setWorld(new Level1());
+        }
+        if (getWorld() instanceof Level1Diamant) {
+            Greenfoot.setWorld(new Level1());
+        }
+    }
+
+    public double checkLevel() {
+        if (getWorld() instanceof Level1) {
+            world = 1;
+        }
+        if (getWorld() instanceof Level1Diamant) {
+            world = 1.5;
+        }
+        return world;
+    }
+
     //Hier kijk ik of de hero het water aanraakt, zo ja dan reset het level.
     public void touchingWater() {
         if (isTouching(WaterTile.class)) {
-            Greenfoot.setWorld(new Level1());
+            respawn();
         }
     }
 
@@ -119,6 +149,23 @@ public class Hero extends Mover {
 
     public void touchingDoor() {
         if (isTouching(Door.class) && keyBlue) {
+            if(world == 1) {
+                level1Gehaald = true;
+            } else if (world == 1.5) {
+                level1DiamantGehaald = true;
+            } 
+            
+//            switch (World) {
+//                case 1:
+//                    level1Gehaald = true;
+//                    break;
+//                case 1.5:
+//                    level1Gehaald = true;
+//                    break;
+//                case 2:
+//                    level2Gehaald = true;
+//                    break;
+//            }
             level++;
             Greenfoot.setWorld(new ScreenSelect());
         }
@@ -183,13 +230,18 @@ public class Hero extends Mover {
         }
     }
 
-    public int getDiamant() {
+    public void getDiamant() {
         if (isTouching(Diamant.class)) {
+
+            if (world == 1) {
+                diamant1 = true;
+            }
+            if (world == 2) {
+                diamant2 = true;
+            }
             removeTouching(Diamant.class);
-            diamant++;
             sb.updateDiamant();
         }
-        return diamant;
     }
 
     public void getSter() {
@@ -197,8 +249,11 @@ public class Hero extends Mover {
             if (ster < 3) {
                 removeTouching(Ster.class);
             }
+
+            if (world == 1) {
+                level1Sterren++;
+            }
             sb.updateSter();
-            ster++;
         }
     }
 
@@ -237,8 +292,12 @@ public class Hero extends Mover {
     public void handleInput() {
         animateJump();
         animateStanding();
-        
-        //if (Greenfoot.isKeyDown("space")) velocityY = -15;
+
+        testControls();
+
+        if (Greenfoot.isKeyDown("space")) {
+            velocityY = -15;
+        }
         if (keyUp() && onGround()) {
             velocityY = -jumpHeight;
         }
@@ -262,7 +321,7 @@ public class Hero extends Mover {
 
         }
     }
-    
+
     public boolean onGround() {
         Actor underLeft = getOneObjectAtOffset(-getImage().getWidth() / 2, getImage().getHeight() / 2, Tile.class);
         Tile tile1 = (Tile) underLeft;
@@ -277,21 +336,21 @@ public class Hero extends Mover {
             setImage("alien1_stand" + direction + ".png");
             groeneMunt = 0;
             jumpHeight = 14;
-            walkSpeed = 5;
+            walkSpeed = 6;
             kleur = 1;
             animationTimerFrame = 10;
         } else if (rozeMunt == 1) {
             setImage("alien2_stand" + direction + ".png");
             rozeMunt = 0;
             jumpHeight = 11;
-            walkSpeed = 3;
+            walkSpeed = 4;
             kleur = 2;
             animationTimerFrame = 13;
         } else if (blauweMunt == 1) {
             setImage("alien3_stand" + direction + ".png");
             blauweMunt = 0;
             jumpHeight = 17;
-            walkSpeed = 5;
+            walkSpeed = 6;
             kleur = 3;
             animationTimerFrame = 10;
         }
@@ -342,5 +401,17 @@ public class Hero extends Mover {
     public boolean keyRight() {
         boolean keyRight = Greenfoot.isKeyDown("right");
         return keyRight;
+    }
+
+    public void testControls() {
+        if (Greenfoot.isKeyDown("w")) {
+            velocityY = -15;
+        }
+        if (Greenfoot.isKeyDown("a")) {
+            velocityX = -10;
+        }
+        if (Greenfoot.isKeyDown("d")) {
+            velocityX = 10;
+        }
     }
 }

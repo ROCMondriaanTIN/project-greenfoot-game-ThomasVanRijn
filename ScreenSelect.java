@@ -18,36 +18,21 @@ public class ScreenSelect extends World {
         super(1000, 800, 1);
         this.setBackground("bg.png");
         addObject(new Button("arrowLeft.png"), 67, 60);
+        addObject(new Button("DiamandLevels.png"), 900, 75);
 
-        addObject(new Button("LevelLock.png"), 230, 234);
-        addObject(new Button("LevelLock.png"), 410, 234);
-        addObject(new Button("LevelLock.png"), 590, 234);
-        addObject(new Button("LevelLock.png"), 770, 234);
-
-        addObject(new Button("LevelLock.png"), 230, 400);
+        addObject(new Button("Level1Unlocked.png"), 230, 400);
         addObject(new Button("LevelLock.png"), 410, 400);
         addObject(new Button("LevelLock.png"), 590, 400);
         addObject(new Button("LevelLock.png"), 770, 400);
 
-        addObject(new Button("LevelLock.png"), 230, 566);
-        addObject(new Button("LevelLock.png"), 410, 566);
-        addObject(new Button("LevelLock.png"), 590, 566);
-        addObject(new Button("LevelLock.png"), 770, 566);
-
-        switch (Hero.level) {
-            case 1:
-                addObject(new Button("Level1Unlock.png"), 230, 234);
-                break;
-            case 2:
-                addObject(new Button("Level1Gehaalt.png"), 239, 239);
-                addObject(new Button("Level2Unlock.png"), 410, 234);
-                break;
-            case 3:
-                addObject(new Button("Level1Gehaalt.png"), 239, 239);
-                addObject(new Button("Level2Gehaalt.png"), 410, 239);
-                break;
-            default:
-                break;
+        if (Hero.level1Gehaald && Hero.level1Sterren >= 2) {
+            if (Hero.diamant1) {
+                addObject(new Button("Level1Gehaalt+Diamant.png"), 230, 400);
+                addObject(new Button("Level2Unlocked.png"), 410, 400);
+            } else {
+                addObject(new Button("Level1Gehaalt.png"), 230, 400);
+                addObject(new Button("Level2Unlocked.png"), 410, 400);
+            }
         }
 
     }
