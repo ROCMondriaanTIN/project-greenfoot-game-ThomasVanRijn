@@ -288,11 +288,7 @@ public class Hero extends Mover {
         animateJump();
         animateStanding();
 
-        testControls();
-
-        if (Greenfoot.isKeyDown("space")) {
-            velocityY = -15;
-        }
+        //testControls();
         if (keyUp() && onGround()) {
             velocityY = -jumpHeight;
         }
