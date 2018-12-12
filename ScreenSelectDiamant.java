@@ -19,13 +19,15 @@ public class ScreenSelectDiamant extends World {
         this.setBackground("bg.png");
         addObject(new Button("arrowLeft.png"), 67, 60);
 
-        if (Hero.diamant1) {
-            if (Hero.level1DiamantGehaald) {
-                addObject(new Button("DiamandLevel1Gehaald.png"), 230, 400);
+        if (Hero.level1Diamant) {
+            if (Hero.level1DiamantGehaald && Hero.level1DiamantSterren >= 2) {
+                addObject(new Button("DiamandLevel1Gehaald.png"), 500, 400);
             } else {
-                addObject(new Button("DiamandLevel1.png"), 230, 400);
+                addObject(new Button("DiamandLevel1.png"), 500, 400);
             }
 
+        } else {
+            addObject(new Button("LevelLock.png"), 500, 400);
         }
     }
 }

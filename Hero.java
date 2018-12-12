@@ -13,18 +13,20 @@ public class Hero extends Mover {
     private final double drag;
 
     public static boolean level1Gehaald;
-    public static boolean level1DiamantGehaald;
-    public static boolean level2Gehaald;
-
     public static int level1Sterren;
+    public static boolean level1Diamant;
 
-    public static boolean diamant1;
-    public static boolean diamant2;
+    public static boolean level1DiamantGehaald;
+    public static int level1DiamantSterren;
 
-    private int ster;
+    public static boolean level2Gehaald;
+    public static int level2Sterren;
 
-    public static double world;
-    public static int level = 1;
+    public static boolean level3Gehaald;
+    public static int level3Sterren;
+
+    public static boolean level4Gehaald;
+    public static int level4Sterren;
 
     public boolean keyBlue = false;
     public boolean keyGreen = false;
@@ -58,7 +60,6 @@ public class Hero extends Mover {
 
     @Override
     public void act() {
-        checkLevel();
 
         touchingWater();
 
@@ -116,19 +117,9 @@ public class Hero extends Mover {
         if (getWorld() instanceof Level1) {
             Greenfoot.setWorld(new Level1());
         }
-        if (getWorld() instanceof Level1Diamant) {
-            Greenfoot.setWorld(new Level1());
+        if (getWorld() instanceof Level2) {
+            Greenfoot.setWorld(new Level2());
         }
-    }
-
-    public double checkLevel() {
-        if (getWorld() instanceof Level1) {
-            world = 1;
-        }
-        if (getWorld() instanceof Level1Diamant) {
-            world = 1.5;
-        }
-        return world;
     }
 
     //Hier kijk ik of de hero het water aanraakt, zo ja dan reset het level.
@@ -149,25 +140,24 @@ public class Hero extends Mover {
 
     public void touchingDoor() {
         if (isTouching(Door.class) && keyBlue) {
-            if(world == 1) {
+            if (getWorld() instanceof Level1) {
                 level1Gehaald = true;
-            } else if (world == 1.5) {
-                level1DiamantGehaald = true;
-            } 
-            
-//            switch (World) {
-//                case 1:
-//                    level1Gehaald = true;
-//                    break;
-//                case 1.5:
-//                    level1Gehaald = true;
-//                    break;
-//                case 2:
-//                    level2Gehaald = true;
-//                    break;
-//            }
-            level++;
+            }
+            if (getWorld() instanceof Level2) {
+                level2Gehaald = true;
+            }
+            if (getWorld() instanceof Level3) {
+                level3Gehaald = true;
+            }
+            if (getWorld() instanceof Level4) {
+                level4Gehaald = true;
+            }
             Greenfoot.setWorld(new ScreenSelect());
+            
+            if (getWorld() instanceof Level1Diamant) {
+                level1DiamantGehaald = true;
+                Greenfoot.setWorld(new ScreenSelectDiamant());
+            }
         }
     }
 
@@ -232,12 +222,8 @@ public class Hero extends Mover {
 
     public void getDiamant() {
         if (isTouching(Diamant.class)) {
-
-            if (world == 1) {
-                diamant1 = true;
-            }
-            if (world == 2) {
-                diamant2 = true;
+            if (getWorld() instanceof Level1) {
+                level1Diamant = true;
             }
             removeTouching(Diamant.class);
             sb.updateDiamant();
@@ -246,13 +232,22 @@ public class Hero extends Mover {
 
     public void getSter() {
         if (isTouching(Ster.class)) {
-            if (ster < 3) {
-                removeTouching(Ster.class);
-            }
-
-            if (world == 1) {
+            if (getWorld() instanceof Level1) {
                 level1Sterren++;
             }
+            if (getWorld() instanceof Level1Diamant) {
+                level1DiamantSterren++;
+            }
+            if (getWorld() instanceof Level2) {
+                level2Sterren++;
+            }
+            if (getWorld() instanceof Level3) {
+                level3Sterren++;
+            }
+            if (getWorld() instanceof Level4) {
+                level4Sterren++;
+            }
+            removeTouching(Ster.class);
             sb.updateSter();
         }
     }
@@ -323,9 +318,9 @@ public class Hero extends Mover {
     }
 
     public boolean onGround() {
-        Actor underLeft = getOneObjectAtOffset(-getImage().getWidth() / 2, getImage().getHeight() / 2, Tile.class);
+        Actor underLeft = getOneObjectAtOffset(-getImage().getWidth() / 2 + 5, getImage().getHeight() / 2, Tile.class);
         Tile tile1 = (Tile) underLeft;
-        Actor underRight = getOneObjectAtOffset(getImage().getWidth() / 2, getImage().getHeight() / 2, Tile.class);
+        Actor underRight = getOneObjectAtOffset(getImage().getWidth() / 2 - 5, getImage().getHeight() / 2, Tile.class);
         Tile tile2 = (Tile) underRight;
 
         return (tile1 != null && tile1.isSolid) || (tile2 != null && tile2.isSolid);
