@@ -11,13 +11,11 @@ public class LockGreen extends Tile
     public LockGreen(String image, int width, int height) {
         super(image, width, height);
     }
-    /**
-     * Act - do whatever the LockGreen wants to do. This method is called whenever
-     * the 'Act' or 'Run' button gets pressed in the environment.
-     */
     public void act() 
     {
-        
-        // Add your action code here.
+        if(isTouching(Hero.class) && Hero.keyGreen) {
+            setImage("niks.png");
+            this.isSolid = false;
+        }
     }    
 }

@@ -17,7 +17,9 @@ public class LockRed extends Tile
      */
     public void act() 
     {
-        
-        // Add your action code here.
+        if(isTouching(Hero.class) && Hero.keyRed) {
+            setImage("niks.png");
+            this.isSolid = false;
+        }
     }    
 }

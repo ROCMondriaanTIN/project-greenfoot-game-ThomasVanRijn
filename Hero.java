@@ -28,10 +28,10 @@ public class Hero extends Mover {
     public static boolean level4Gehaald;
     public static int level4Sterren;
 
-    public boolean keyBlue = false;
-    public boolean keyGreen = false;
-    public boolean keyRed = false;
-    public boolean keyYellow = false;
+    public static boolean keyBlue = false;
+    public static boolean keyGreen = false;
+    public static boolean keyRed = false;
+    public static boolean keyYellow = false;
 
     public int groeneMunt;
     public int blauweMunt;
@@ -70,13 +70,10 @@ public class Hero extends Mover {
         touchingDoor();
 
         getKeyGreen();
-        touchingLockGreen();
 
         getKeyRed();
-        touchingLockRed();
 
         getKeyYellow();
-        touchingLockYellow();
 
         getDiamant();
         getSter();
@@ -170,34 +167,14 @@ public class Hero extends Mover {
         return keyGreen;
     }
 
-    public void touchingLockGreen() {
-        Actor a = this.getOneIntersectingObject(LockGreen.class);
-        if (a != null && keyGreen) {
-            Tile lockGreen = (Tile) a;
-            TestWorld Level2 = (TestWorld) getWorld();
-            Level2.te.removeTile(lockGreen);
-            getWorld().removeObjects(getWorld().getObjects(KeyGreenHud.class));
-        }
-    }
-
     public boolean getKeyRed() {
         if (isTouching(KeyRed.class)) {
             removeTouching(KeyRed.class);
             sb.updateKeyRed();
             keyRed = true;
         }
+        
         return keyRed;
-    }
-
-    public void touchingLockRed() {
-        Actor a = this.getOneIntersectingObject(LockRed.class);
-        if (a != null && keyRed) {
-            keyRed = false;
-            Tile lockRed = (Tile) a;
-            TestWorld Level4 = (TestWorld) getWorld();
-            Level4.te.removeTile(lockRed);
-            getWorld().removeObjects(getWorld().getObjects(KeyRedHud.class));
-        }
     }
 
     public boolean getKeyYellow() {
@@ -207,17 +184,6 @@ public class Hero extends Mover {
             keyYellow = true;
         }
         return keyYellow;
-    }
-
-    public void touchingLockYellow() {
-        Actor a = this.getOneIntersectingObject(LockYellow.class);
-        if (a != null && keyYellow) {
-            keyRed = false;
-            Tile lockYellow = (Tile) a;
-            TestWorld Level2 = (TestWorld) getWorld();
-            Level2.te.removeTile(lockYellow);
-            getWorld().removeObjects(getWorld().getObjects(KeyYellowHud.class));
-        }
     }
 
     public void getDiamant() {
